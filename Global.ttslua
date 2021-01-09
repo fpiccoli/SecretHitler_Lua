@@ -1,0 +1,11 @@
+--[[ Lua code. See documentation: https://api.tabletopsimulator.com/ --]]
+#include SecretHitler_Lua/misc/zones
+#include SecretHitler_Lua/controller/draw
+
+--[[ The onLoad event is called after the game save finishes loading. --]]
+function onLoad()
+  coin = getObjectFromGUID('a5b10f')
+
+  drawBtn(zone, coin, 'drawCard')
+
+end

@@ -1,0 +1,48 @@
+draw = {}
+
+function drawBtn(obj, btn, func)
+  local drawButton = {}
+  drawButton.click_function = func
+  drawButton.label = 'Draw'
+  drawButton.function_owner = self
+  drawButton.position = obj.drawButtonPosition
+  drawButton.width = 1400
+  drawButton.height = 1200
+  drawButton.font_size = 400
+
+  btn.createButton(drawButton)
+end
+
+function drawCard(obj, player)
+  local deck = getObjectFromGUID(zone.drawGUID).getObjects()[1]
+  local discards = getObjectFromGUID(zone.discardGUID).getObjects()[1]
+
+  if deck == nil then
+    discards.setPosition({-16.70, 1.5, -4.58})
+    Timer.create({ identifier = 'shuffle', function_name = 'shuffleCards', delay = 0.2, repetitions = 3 })
+    return
+
+  elseif deck.getQuantity() < 4 then
+    discards.setPosition({-16.70, 1.5, -4.58})
+    Timer.create({ identifier = 'shuffle', function_name = 'shuffleCards', delay = 0.2, repetitions = 3 })
+    return
+  end
+
+  params = {cards = deck, player = player}
+  Timer.create({
+    identifier     = 'darCartas',
+    function_name  = 'drawOneCardByTime',
+    parameters     = params,
+    delay          = 0.25,
+    repetitions    = 3
+  })
+end
+
+function shuffleCards(params)
+  local deck = getObjectFromGUID(zone.drawGUID).getObjects()[1]
+  deck.Shuffle()
+end
+
+function drawOneCardByTime(deck)
+  deck.cards.deal(1, deck.player)
+end

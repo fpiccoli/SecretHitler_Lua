@@ -1,0 +1,4 @@
+
+zone = {
+  drawGUID = 'aff2d7', discardGUID = 'ace806', drawButtonPosition = {0, 0.7, -0.3}
+}
